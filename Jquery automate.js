@@ -1,9 +1,19 @@
-var arr = ["Kishorg5"]
+var arr = localStorage.getItem("myGlobalVariable").split(',')
+if(localStorage.getItem("flag")== '1'){
+    localStorage.setItem("flag", 0)
+    window.open("https://www.ixacademy.us/en/IX-ADMIN/in/v13/manage-members/","_self")
+}
+if($(".m-portlet__is-empty-title").text() == "No contents to be displayed"){
+    arr.pop()
+    localStorage.setItem("myGlobalVariable",arr) 
+    window.open("https://www.ixacademy.us/en/IX-ADMIN/in/v13","_self")
+}
+
 var len = arr.length
-for (let i = 0; i < len; i++) {
-    var searchTerm = arr[i] //"Vaibhavt";
+
+    var searchTerm = arr[len -1] //"Vaibhavt";
     var url = window.location.href;
-    for (let j = 0; j < 2; j++) {
+    
         var url = window.location.href;
         // Check if the URL contains the "username" parameter
         var hasUsernameParam = url.includes(`username=${searchTerm}`)
@@ -22,27 +32,41 @@ for (let i = 0; i < len; i++) {
         } else if (hasUsernameParam) {
             try {
                 $(document).ready(function () {
+
+                    if($(".m-portlet__is-empty-title").text() == "No contents to be displayed"){
+                        arr.pop()
+                        localStorage.setItem("myGlobalVariable",arr) 
+                        window.open("https://www.ixacademy.us/en/IX-ADMIN/in/v13/manage-members/","_self")
+                    }
                     var checkbox = $('input[name="bulk_id"][class="bulk-checkbox m-checkable"]');
 
                     // Check the checkbox
                     checkbox.prop("checked", true);
                     var link = $(".dropdown-item.bulk-action-button[data-name='block_member']");
                     if (link.length > 0 && $(".col.text-right").text() == ' - ') {
+                        arr.pop()
+                        localStorage.setItem("myGlobalVariable",arr)
+                        localStorage.setItem("flag",1)
                         link.click();
                         alert(`removed ${searchTerm}`)
                         console.log(`removed ${searchTerm} `)
-                    } else {
+                       
+                    } else if($(".col.text-right").text() != ' - ' && $(".col.text-right").length != 0){
+                        arr.pop()
+                        localStorage.setItem("myGlobalVariable",arr)
+                        localStorage.setItem("flag",1)
                         alert(`not removed ${searchTerm}`)
                         console.warn("Link not found. Please ensure the selector is accurate.");
+                        
                     }
                 });
             } catch (e) {
                 console.log(e)
             }
         }
-        setTimeout(function () { console.log("executed") }, 20000)
-    }
-}
+       
+    
+
 
 
 // function wait() {
